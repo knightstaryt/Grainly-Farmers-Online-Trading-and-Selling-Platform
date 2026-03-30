@@ -412,7 +412,78 @@ footer {
   font-weight: 700;
   transition: background 0.3s;
 }
+/* ===== CONTACT SECTION ===== */
+.contact-section {
+  padding: 60px;
+  background-color: #0f0f0f;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  background-color: #1c1c1c;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+  padding: 20px 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.3s;
+}
+
+.info-card:hover {
+  transform: translateY(-3px);
+}
+
+.info-card span {
+  font-size: 2rem;
+}
+
+.info-card h3 {
+  color: #a8e063;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.info-card p {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.mission-box {
+  background: linear-gradient(135deg, #1a2a1a, #1c1c1c);
+  border: 1px solid #a8e06333;
+  border-radius: 16px;
+  padding: 30px;
+}
+
+.mission-box h3 {
+  color: #a8e063;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.mission-box p {
+  color: #888;
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+  }
+}
 .contact-btn:hover {
   background-color: #8fce45;
 }

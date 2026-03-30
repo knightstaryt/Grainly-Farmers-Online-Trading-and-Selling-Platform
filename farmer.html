@@ -90,14 +90,67 @@
         </select>
       </div>
 
-<button class="submit-btn">🌱 List My Produce</button>
+<button class="submit-btn" onclick="listProduce()">🌱 List My Produce</button>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2025 Grainly. From soil to sale — directly.</p>
   </footer>
+
+  <script>
+    function listProduce() {
+      // Get all values
+      const name = document.querySelectorAll('input')[0].value.trim();
+      const contact = document.querySelectorAll('input')[1].value.trim();
+      const location = document.querySelectorAll('input')[2].value.trim();
+      const product = document.querySelectorAll('input')[3].value.trim();
+      const category = document.querySelectorAll('select')[0].value;
+      const quantity = document.querySelectorAll('input')[4].value.trim();
+      const price = document.querySelectorAll('input')[5].value.trim();
+      const date = document.querySelectorAll('input')[6].value.trim();
+      const description = document.querySelector('textarea').value.trim();
+      const delivery = document.querySelectorAll('select')[1].value;
+
+      // Validation
+      if (!name || !contact || !location || !product || !quantity || !price) {
+        alert('⚠️ Please fill in all required fields before listing!');
+        return;
+      }
+
+      // Build listing object
+      const listing = {
+        name, contact, location, product,
+        category, quantity, price, date,
+        description, delivery,
+        emoji: getCategoryEmoji(category),
+        id: Date.now()
+      };
+
+      // Save to localStorage
+      const existing = JSON.parse(localStorage.getItem('grainly_listings') || '[]');
+      existing.push(listing);
+      localStorage.setItem('grainly_listings', JSON.stringify(existing));
+
+      // Success message
+      alert('✅ Your produce has been listed successfully on Grainly! Buyers can now see it.');
+
+      // Clear form
+      document.querySelectorAll('input').forEach(i => i.value = '');
+      document.querySelectorAll('textarea').forEach(t => t.value = '');
+    }
+
+    function getCategoryEmoji(category) {
+      const map = {
+        'Vegetables': '🥦',
+        'Fruits': '🍎',
+        'Grains & Pulses': '🌾',
+        'Dairy Products': '🥛',
+        'Other': '🌿'
+      };
+      return map[category] || '🌱';
+    }
+  </script>
 
 </body>
 </html>

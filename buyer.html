@@ -132,10 +132,68 @@
 
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Grainly. From soil to sale — directly.</p>
-  </footer>
+  <script>
+    // Load farmer listings from localStorage
+    function loadListings() {
+      const listings = JSON.parse(localStorage.getItem('grainly_listings') || '[]');
+      const section = document.querySelector('.products-section');
+
+      if (listings.length === 0) return; // keep sample cards if no listings yet
+
+      // Add farmer submitted cards at the top
+      listings.reverse().forEach(listing => {
+        const card = document.createElement('div');
+        card.className = 'product-card new-listing';
+        card.innerHTML = `
+          <div class="product-emoji">${listing.emoji}</div>
+          <div class="product-info">
+            <h3>${listing.product} <span class="new-badge">🆕 New</span></h3>
+            <p class="farmer-name">👨‍🌾 ${listing.name} — ${listing.location}</p>
+            <p class="product-detail">📦 Quantity: ${listing.quantity}</p>
+            <p class="product-detail">💰 Price: ${listing.price}</p>
+            <p class="product-detail">🗂️ Category: ${listing.category}</p>
+            <p class="product-detail">🚚 ${listing.delivery}</p>
+            ${listing.description ? `<p class="product-detail">📝 ${listing.description}</p>` : ''}
+            <div class="product-footer">
+              <span class="price">${listing.price}</span>
+              <a href="contact.html" class="contact-btn">Contact Farmer</a>
+            </div>
+          </div>
+        `;
+        section.insertBefore(card, section.firstChild);
+      });
+    }
+
+    // Search functionality
+    document.querySelector('.search-bar').addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      document.querySelectorAll('.product-card').forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(query) ? 'flex' : 'none';
+      });
+    });
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.textContent.trim();
+        document.querySelectorAll('.product-card').forEach(card => {
+          if (filter === 'All') {
+            card.style.display = 'flex';
+          } else {
+            const category = card.querySelector('.product-detail') ? 
+              card.innerHTML.toLowerCase() : '';
+            card.style.display = card.innerHTML.toLowerCase().includes(filter.toLowerCase()) ? 'flex' : 'none';
+          }
+        });
+      });
+    });
+
+    // Run on page load
+    loadListings();
+  </script>
 
 </body>
 </html>

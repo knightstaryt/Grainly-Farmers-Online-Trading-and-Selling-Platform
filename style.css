@@ -487,3 +487,17 @@ footer {
 .contact-btn:hover {
   background-color: #8fce45;
 }
+/* ===== NEW LISTING BADGE ===== */
+.new-badge {
+  font-size: 0.7rem;
+  background-color: #a8e063;
+  color: #0f0f0f;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.new-listing {
+  border-color: #a8e06355 !important;
+}
